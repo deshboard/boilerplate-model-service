@@ -4,3 +4,7 @@ services:
     service:
         ports:
             - 8080:80
+
+    db:
+        ports:
+            - 3336:3306

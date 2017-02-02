@@ -1,0 +1,8 @@
+version: "2.1"
+
+services:
+    db_check:
+        image: jwilder/dockerize
+        command: dockerize -wait tcp://db:3306 -timeout 120s
+        links:
+            - db
