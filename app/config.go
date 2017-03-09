@@ -21,4 +21,10 @@ type Configuration struct {
 	FluentdEnabled bool   `split_words:"true"`
 	FluentdHost    string `split_words:"true"`
 	FluentdPort    int    `split_words:"true"`
+
+	DbHost string `split_words:"true" required:"true"`
+	DbPort int    `split_words:"true" required:"true"`
+	DbUser string `split_words:"true" required:"true"`
+	DbPass string `split_words:"true" required:"true"`
+	DbName string `split_words:"true" required:"true"`
 }

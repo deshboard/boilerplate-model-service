@@ -1,4 +1,4 @@
-package main // import "github.com/deshboard/boilerplate-grpc-service"
+package main // import "github.com/deshboard/boilerplate-model-service"
 
 import (
 	"context"
@@ -14,8 +14,9 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/deshboard/boilerplate-grpc-service/app"
-	"github.com/deshboard/boilerplate-grpc-service/model/boilerplate"
+	"github.com/deshboard/boilerplate-model-service/app"
+	"github.com/deshboard/boilerplate-model-service/model/boilerplate"
+	"github.com/jmoiron/sqlx"
 	"github.com/sagikazarmark/healthz"
 	"github.com/sagikazarmark/serverz"
 )
@@ -31,6 +32,21 @@ func main() {
 		"buildDate":   app.BuildDate,
 		"environment": config.Environment,
 	}).Printf("Starting %s service", app.FriendlyServiceName)
+
+	db, err := sqlx.Open(
+		"mysql",
+		fmt.Sprintf(
+			"%s:%s@tcp(%s:%s)/%s",
+			config.DbUser,
+			config.DbPass,
+			config.DbHost,
+			config.DbPort,
+			config.DbName,
+		),
+	)
+	if err != nil {
+		logger.Panic(err)
+	}
 
 	w := logger.Logger.WriterLevel(logrus.ErrorLevel)
 	shutdown.Register(w.Close)
@@ -54,13 +70,13 @@ func main() {
 	}
 
 	grpcServer := grpc.NewServer()
-	boilerplate.RegisterBoilerplateServer(grpcServer, app.NewService())
+	boilerplate.RegisterBoilerplateServer(grpcServer, app.NewService(db))
 	grpcServerWrapper := &serverz.NamedServer{
 		Server: &serverz.GrpcServer{grpcServer},
 		Name:   "grpc",
 	}
 
-	healthHandler, status := newHealthServiceHandler()
+	healthHandler, status := newHealthServiceHandler(db)
 	healthServer := &serverz.NamedServer{
 		Server: &http.Server{
 			Handler:  healthHandler,

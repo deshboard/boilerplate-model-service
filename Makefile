@@ -13,16 +13,26 @@ GO_PACKAGES = $(shell go list ./... | grep -v /vendor/)
 GODOTENV = $(shell if which godotenv > /dev/null 2>&1; then echo "godotenv"; fi)
 PROTO_PATH = vendor/github.com/deshboard/boilerplate-proto/proto
 
-.PHONY: setup install proto build run watch build-docker docker clean check test watch-test fmt csfix envcheck help
+.PHONY: setup install docker-local migrate proto build run watch build-docker docker clean check test watch-test fmt csfix envcheck help
 .DEFAULT_GOAL := help
 
-setup: envcheck install .env ## Setup the project for development
+setup: envcheck install .env docker-compose.override.yml ## Setup the project for development
 
 install: ## Install dependencies
 	@glide install
 
 .env: ## Create local env file
 	cp .env.example .env
+
+docker-compose.override.yml: ## Create docker-compose override file
+	cp docker-compose.override.yml.example docker-compose.override.yml
+
+docker-local: docker-compose.override.yml ## Setup local docker env
+	mkdir -p var/
+	docker-compose up -d
+
+migrate: ## Run migrations
+	migrate -path ./migrations/ -database mysql://root:@tcp\(127.0.0.1:3336\)/service up
 
 proto: ## Generate code from protocol buffer
 	@mkdir -p model
@@ -51,7 +61,7 @@ ifeq (${TAG}, master)
 endif
 
 clean: ## Clean the working area
-	rm -rf build/ vendor/ .env
+	rm -rf build/ vendor/ .env docker-composer.override.yml
 
 check: test fmt ## Run tests and linters
 
@@ -75,6 +85,7 @@ envcheck: ## Check environment for all the necessary requirements
 	$(call executable_check,Godotenv,godotenv)
 	$(call executable_check,protoc,protoc)
 	$(call executable_check,protowrap,protowrap)
+	$(call executable_check,Docker Compose,docker-compose)
 
 define executable_check
     @printf "\033[36m%-30s\033[0m %s\n" "$(1)" `if which $(2) > /dev/null 2>&1; then echo "\033[0;32m✓\033[0m"; else echo "\033[0;31m✗\033[0m"; fi`

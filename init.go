@@ -9,7 +9,7 @@ import (
 	_ "net/http/pprof"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/deshboard/boilerplate-grpc-service/app"
+	"github.com/deshboard/boilerplate-model-service/app"
 	"github.com/evalphobia/logrus_fluent"
 	"github.com/kelseyhightower/envconfig"
 	opentracing "github.com/opentracing/opentracing-go"

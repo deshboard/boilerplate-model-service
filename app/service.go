@@ -1,16 +1,19 @@
 package app
 
 import (
-	"github.com/deshboard/boilerplate-grpc-service/model/boilerplate"
+	"github.com/deshboard/boilerplate-model-service/model/boilerplate"
+	"github.com/jmoiron/sqlx"
 	context "golang.org/x/net/context"
 )
 
 // Service implements the Protocol Buffer RPC server
-type Service struct{}
+type Service struct {
+	db *sqlx.DB
+}
 
 // NewService creates a new service object
-func NewService() *Service {
-	return &Service{}
+func NewService(db *sqlx.DB) *Service {
+	return &Service{db}
 }
 
 // Method is supposed to do something

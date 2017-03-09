@@ -1,5 +1,5 @@
-hash: 0824612e9542ba5b36c127e5026cde33e328c874a44dc3a68bb00c682f4b921f
-updated: 2017-03-09T11:09:03.046608616+01:00
+hash: ee2a70d1433ae01b4cdb924d4cfe3e0028314350bbaf74eaff948c085c3e77f7
+updated: 2017-03-09T11:14:53.863771864+01:00
 imports:
 - name: github.com/airbrake/gobrake
   version: 668876711219e8b0206e2994bf0a59d889c775aa
@@ -11,10 +11,16 @@ imports:
   version: 28bdb662295c1b7aca09c1a4edbf9430010775a9
   subpackages:
   - fluent
+- name: github.com/go-sql-driver/mysql
+  version: a0583e0143b1624142adab07e0e97fe106d99561
 - name: github.com/golang/protobuf
   version: 69b215d01a5606c843240eab4937eab3acee6530
   subpackages:
   - proto
+- name: github.com/jmoiron/sqlx
+  version: f980a91bdc37abef88269b8f122d7de6352102f5
+  subpackages:
+  - reflectx
 - name: github.com/kelseyhightower/envconfig
   version: f611eb38b3875cc3bd991ca91c51d06446afa14c
 - name: github.com/opentracing/opentracing-go
