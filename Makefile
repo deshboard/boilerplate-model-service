@@ -13,26 +13,19 @@ GO_PACKAGES = $(shell go list ./... | grep -v /vendor/)
 GODOTENV = $(shell if which godotenv > /dev/null 2>&1; then echo "godotenv"; fi)
 PROTO_PATH = vendor/github.com/deshboard/boilerplate-proto/proto
 
-.PHONY: setup install docker-local migrate build run watch build-docker docker clean check test watch-test fmt csfix envcheck help proto
+.PHONY: setup install build run watch build-docker docker clean check test watch-test fmt csfix envcheck help
 .DEFAULT_GOAL := help
 
-setup: envcheck install .env docker-compose.override.yml ## Setup the project for development
+include proto.mk
+include service.mk
+
+setup: envcheck install .env ## Setup the project for development
 
 install: ## Install dependencies
 	@glide install
 
 .env: ## Create local env file
 	cp .env.example .env
-
-docker-compose.override.yml: ## Create docker-compose override file
-	cp docker-compose.override.yml.example docker-compose.override.yml
-
-docker-local: docker-compose.override.yml ## Setup local docker env
-	mkdir -p var/
-	docker-compose up -d
-
-migrate: ## Run migrations
-	migrate -path ./migrations/ -database mysql://root:@tcp\(127.0.0.1:3336\)/service up
 
 build: ## Build a binary
 	go build ${LDFLAGS} -o build/${BINARY_NAME}
@@ -57,7 +50,7 @@ ifeq (${TAG}, master)
 endif
 
 clean: ## Clean the working area
-	rm -rf build/ vendor/ .env docker-composer.override.yml
+	rm -rf build/ vendor/ .env
 
 check: test fmt ## Run tests and linters
 
@@ -88,8 +81,4 @@ define executable_check
 endef
 
 help:
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
-
-proto: ## Generate code from protocol buffer
-	@mkdir -p model
-	protowrap -I ${PROTO_PATH} ${PROTO_PATH}/boilerplate/boilerplate.proto ${PROTO_PATH}/boilerplate2/boilerplate2.proto  --go_out=plugins=grpc:model
+	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
