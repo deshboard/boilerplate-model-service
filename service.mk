@@ -9,3 +9,11 @@ docker-local: docker-compose.override.yml ## Setup local docker env
 
 migrate: ## Run migrations
 	migrate -path ./migrations/ -database mysql://root:@tcp\(127.0.0.1:3336\)/service up
+
+setup:: docker-compose.override.yml
+
+clean::
+	rm -rf docker-compose.override.yml
+
+envcheck::
+	$(call executable_check,Docker Compose,docker-compose)
