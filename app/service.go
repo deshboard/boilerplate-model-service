@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/deshboard/boilerplate-model-service/model/boilerplate"
+	"github.com/deshboard/boilerplate-model-service/proto/boilerplate"
 	"github.com/jmoiron/sqlx"
 	context "golang.org/x/net/context"
 )
