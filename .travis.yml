@@ -30,7 +30,7 @@ before_script:
     - export VERSION=${TRAVIS_TAG:-$TRAVIS_BRANCH}
     - export DOCKER_IMAGE=deshboard/$(go list . | cut -d '/' -f 3)
     - mysql -e 'CREATE DATABASE service;'
-    - make DATABASE_PORT=3306 migrate
+    - make migrate
 
 script:
     - make ARGS="-tags=integration" check
