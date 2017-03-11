@@ -4,14 +4,24 @@ sudo: false
 
 services:
     - docker
+    - mysql
 
 go:
     - 1.8.x
     - tip
 
+env:
+    global:
+        APP_DB_HOST=127.0.0.1
+        APP_DB_PORT=3306
+        APP_DB_USER=root
+        APP_DB_PASS=""
+        APP_DB_NAME=service
+
 before_install:
     - mkdir -p $HOME/bin
     - curl -s https://raw.githubusercontent.com/sagikazarmark/traviscripts/e106b6d593915a0cb736919ecb3804e8eb5e0440/scripts/glide.sh | bash
+    - mysql -e 'CREATE DATABASE service;'
 
 install: make install .env
 
@@ -20,7 +30,7 @@ before_script:
     - export DOCKER_IMAGE=deshboard/$(go list . | cut -d '/' -f 3)
 
 script:
-    - make check
+    - make ARGS="-tags=integration" check
     - if [[ $TRAVIS_EVENT_TYPE = push ]]; then make IMAGE=$DOCKER_IMAGE VERSION=$VERSION docker; fi
 
 deploy:
