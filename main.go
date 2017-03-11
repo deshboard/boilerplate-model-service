@@ -16,7 +16,7 @@ import (
 	"github.com/Sirupsen/logrus"
 	"github.com/deshboard/boilerplate-model-service/app"
 	"github.com/deshboard/boilerplate-model-service/proto/boilerplate"
-	"github.com/jmoiron/sqlx"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/sagikazarmark/healthz"
 	"github.com/sagikazarmark/serverz"
 )
@@ -33,17 +33,7 @@ func main() {
 		"environment": config.Environment,
 	}).Printf("Starting %s service", app.FriendlyServiceName)
 
-	db, err := sqlx.Open(
-		"mysql",
-		fmt.Sprintf(
-			"%s:%s@tcp(%s:%s)/%s",
-			config.DbUser,
-			config.DbPass,
-			config.DbHost,
-			config.DbPort,
-			config.DbName,
-		),
-	)
+	db, err := app.NewDB(config)
 	if err != nil {
 		logger.Panic(err)
 	}

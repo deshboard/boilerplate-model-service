@@ -13,7 +13,7 @@ migrate: ## Run migrations
 setup:: docker-compose.override.yml
 
 clean::
-	rm -rf docker-compose.override.yml
+	rm -rf var/ docker-compose.override.yml
 
 envcheck::
 	$(call executable_check,Docker Compose,docker-compose)
