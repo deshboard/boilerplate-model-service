@@ -4,12 +4,12 @@ include proto.mk
 
 DATABASE_PORT ?= 3336
 
-.PHONY: docker-local migrate
+.PHONY: start migrate
 
 docker-compose.override.yml: ## Create docker-compose override file
 	cp docker-compose.override.yml.example docker-compose.override.yml
 
-docker-local: docker-compose.override.yml ## Setup local docker env
+start: docker-compose.override.yml ## Start docker env
 	mkdir -p var/
 	docker-compose up -d
 
@@ -20,6 +20,7 @@ migrate: ## Run migrations
 setup:: docker-compose.override.yml
 
 clean::
+	docker-compose down
 	rm -rf var/ docker-compose.override.yml
 
 envcheck::
