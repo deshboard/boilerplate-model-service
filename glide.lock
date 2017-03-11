@@ -1,5 +1,5 @@
 hash: ee2a70d1433ae01b4cdb924d4cfe3e0028314350bbaf74eaff948c085c3e77f7
-updated: 2017-03-09T11:14:53.863771864+01:00
+updated: 2017-03-11T12:09:31.212947538+01:00
 imports:
 - name: github.com/airbrake/gobrake
   version: 668876711219e8b0206e2994bf0a59d889c775aa
@@ -33,6 +33,10 @@ imports:
   version: 53d84ee314bb0f042a6d5c2fb65bab4301686dcf
 - name: github.com/sagikazarmark/serverz
   version: 6795311fdd32a52d3decca847d2ae602e66af310
+- name: github.com/sagikazarmark/utilz
+  version: db205155fa3394b3114b60ef24a8f7287b3c3fca
+  subpackages:
+  - str
 - name: github.com/Sirupsen/logrus
   version: 0208149b40d863d2c1a2f8fe5753096a9cf2cc8b
 - name: github.com/tinylib/msgp
