@@ -12,18 +12,19 @@ go:
 
 env:
     global:
-        APP_DB_HOST=127.0.0.1
-        APP_DB_PORT=3306
-        APP_DB_USER=root
-        APP_DB_PASS=""
-        APP_DB_NAME=service
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_USER=root
+        DB_PASS=""
+        DB_NAME=service
 
 before_install:
     - mkdir -p $HOME/bin
     - curl -s https://raw.githubusercontent.com/sagikazarmark/traviscripts/e106b6d593915a0cb736919ecb3804e8eb5e0440/scripts/glide.sh | bash
+    - make envcheck
     - curl -s https://raw.githubusercontent.com/sagikazarmark/traviscripts/072477228717d0d3eb671ae5b767e272d01dd838/scripts/migrate.sh | bash
 
-install: make install .env
+install: make setup
 
 before_script:
     - export VERSION=${TRAVIS_TAG:-$TRAVIS_BRANCH}

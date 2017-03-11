@@ -1,3 +1,7 @@
+# Service specific Makefile
+
+include proto.mk
+
 DATABASE_PORT ?= 3336
 
 .PHONY: docker-local migrate

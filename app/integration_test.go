@@ -1,66 +1,57 @@
 // +build integration
 
-package app_test
+package app
 
 import (
 	"os"
 	"testing"
 
-	"github.com/deshboard/boilerplate-model-service/app"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 	"github.com/kelseyhightower/envconfig"
 )
 
-var db *sqlx.DB
+var DB *sqlx.DB
 
 func TestMain(m *testing.M) {
-	integrationSetUp()
+	config := &Configuration{}
+
+	envconfig.MustProcess("", config)
+
+	setUp(config)
 
 	result := m.Run()
 
-	integrationTearDown()
+	tearDown(config)
 
 	os.Exit(result)
 }
 
 // Integration test initialization
-func integrationSetUp() {
-	setupDatabase()
+func setUp(config *Configuration) {
+	// Necessary to avoid shadowing global "DB" variable
+	var err error
+
+	DB, err = NewDB(config)
+	if err != nil {
+		panic(err)
+	}
+
+	err = DB.Ping()
+	if err != nil {
+		panic(err)
+	}
+
+	cleanupDatabase()
 }
 
 // Cleanup after integration tests
-func integrationTearDown() {
-	teardownDatabase()
-}
-
-func setupDatabase() {
-	config := &app.Configuration{}
-
-	envconfig.MustProcess("app", config)
-
-	// Necessary to avoid shadowing global "db" variable
-	var err error
-
-	db, err = app.NewDB(config)
-	if err != nil {
-		panic(err)
-	}
-
-	err = db.Ping()
-	if err != nil {
-		panic(err)
-	}
-
-	cleanupDatabase()
-}
-
-func teardownDatabase() {
+func tearDown(config *Configuration) {
 	cleanupDatabase()
 
-	db.Close()
+	DB.Close()
 }
 
 func cleanupDatabase() {
-	db.MustExec("DELETE FROM boilerplate")
+	DB.MustExec("DELETE FROM boilerplate")
 }
