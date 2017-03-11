@@ -2,7 +2,11 @@
 
 include proto.mk
 
-DATABASE_PORT ?= 3336
+DB_USER ?= root
+DB_PASS ?=
+DB_HOST ?= 127.0.0.1
+DB_PORT ?= 3336
+DB_NAME ?= service
 
 .PHONY: start migrate
 
@@ -15,7 +19,7 @@ start: docker-compose.override.yml ## Start docker env
 
 # TODO: fix path when migrate is released
 migrate: ## Run migrations
-	migrate -path ${PWD}/migrations/ -database mysql://root:@tcp\(127.0.0.1:${DATABASE_PORT}\)/service up
+	migrate -path ${PWD}/migrations/ -database mysql://${DB_USER}:${DB_PASS}@tcp\(${DB_HOST}:${DB_PORT}\)/${DB_NAME} up
 
 setup:: docker-compose.override.yml
 
