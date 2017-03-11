@@ -21,13 +21,15 @@ env:
 before_install:
     - mkdir -p $HOME/bin
     - curl -s https://raw.githubusercontent.com/sagikazarmark/traviscripts/e106b6d593915a0cb736919ecb3804e8eb5e0440/scripts/glide.sh | bash
-    - mysql -e 'CREATE DATABASE service;'
+    - curl -s https://raw.githubusercontent.com/sagikazarmark/traviscripts/072477228717d0d3eb671ae5b767e272d01dd838/scripts/migrate.sh | bash
 
 install: make install .env
 
 before_script:
     - export VERSION=${TRAVIS_TAG:-$TRAVIS_BRANCH}
     - export DOCKER_IMAGE=deshboard/$(go list . | cut -d '/' -f 3)
+    - mysql -e 'CREATE DATABASE service;'
+    - make migrate
 
 script:
     - make ARGS="-tags=integration" check

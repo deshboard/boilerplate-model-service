@@ -1,3 +1,5 @@
+DATABASE_PORT ?= 3336
+
 .PHONY: docker-local migrate
 
 docker-compose.override.yml: ## Create docker-compose override file
@@ -8,7 +10,7 @@ docker-local: docker-compose.override.yml ## Setup local docker env
 	docker-compose up -d
 
 migrate: ## Run migrations
-	migrate -path ./migrations/ -database mysql://root:@tcp\(127.0.0.1:3336\)/service up
+	migrate -path ./migrations/ -database mysql://root:@tcp\(127.0.0.1:${DATABASE_PORT}\)/service up
 
 setup:: docker-compose.override.yml
 
