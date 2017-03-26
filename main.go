@@ -14,8 +14,8 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/Sirupsen/logrus"
+	"github.com/deshboard/boilerplate-model-service/apis/boilerplate"
 	"github.com/deshboard/boilerplate-model-service/app"
-	"github.com/deshboard/boilerplate-model-service/proto/boilerplate"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/sagikazarmark/healthz"
 	"github.com/sagikazarmark/serverz"
@@ -66,7 +66,9 @@ func main() {
 		Name:   "grpc",
 	}
 
-	healthHandler, status := newHealthServiceHandler(db)
+	status := healthz.NewStatusChecker(healthz.Healthy)
+	readiness := healthz.NewCheckers(status, healthz.NewPingChecker(db))
+	healthHandler := healthz.NewHealthServiceHandler(healthz.NewCheckers(), readiness)
 	healthServer := &serverz.NamedServer{
 		Server: &http.Server{
 			Handler:  healthHandler,
@@ -105,8 +107,9 @@ MainLoop:
 			if config.Debug {
 				go serverManager.StopServer(debugServer, wg)(ctx)
 			}
-			go serverManager.StopServer(healthServer, wg)(ctx)
+
 			go serverManager.StopServer(grpcServerWrapper, wg)(ctx)
+			go serverManager.StopServer(healthServer, wg)(ctx)
 
 			wg.Wait()
 
