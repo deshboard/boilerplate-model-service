@@ -1,6 +1,7 @@
 package app
 
 import (
+	"github.com/Sirupsen/logrus"
 	"github.com/deshboard/boilerplate-model-service/apis/boilerplate"
 	"github.com/jmoiron/sqlx"
 	context "golang.org/x/net/context"
@@ -9,11 +10,17 @@ import (
 // Service implements the Protocol Buffer RPC server
 type Service struct {
 	db *sqlx.DB
+
+	logger logrus.FieldLogger
 }
 
 // NewService creates a new service object
-func NewService(db *sqlx.DB) *Service {
-	return &Service{db}
+func NewService(db *sqlx.DB, logger logrus.FieldLogger) *Service {
+	return &Service{
+		db: db,
+
+		logger: logger,
+	}
 }
 
 // Method is supposed to do something
