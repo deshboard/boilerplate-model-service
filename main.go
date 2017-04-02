@@ -10,6 +10,7 @@ import (
 	"os/signal"
 	"sync"
 	"syscall"
+	"time"
 
 	"google.golang.org/grpc"
 
@@ -66,9 +67,10 @@ func main() {
 		Name:   "grpc",
 	}
 
+	serviceHealth := healthz.NewTCPChecker(config.ServiceAddr, healthz.WithTCPTimeout(2*time.Second))
 	status := healthz.NewStatusChecker(healthz.Healthy)
 	readiness := healthz.NewCheckers(status, healthz.NewPingChecker(db))
-	healthHandler := healthz.NewHealthServiceHandler(healthz.NewCheckers(), readiness)
+	healthHandler := healthz.NewHealthServiceHandler(serviceHealth, readiness)
 	healthServer := &serverz.NamedServer{
 		Server: &http.Server{
 			Handler:  healthHandler,
