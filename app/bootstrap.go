@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/jmoiron/sqlx"
-	"github.com/sagikazarmark/utilz/str"
+	"github.com/sagikazarmark/utilz/strings"
 )
 
 // NewDB creates a new DB connection
@@ -21,7 +21,7 @@ func NewDB(config *Configuration) (*sqlx.DB, error) {
 		),
 	)
 	if err == nil {
-		db.MapperFunc(str.ToSnake)
+		db.MapperFunc(strings.ToSnake)
 	}
 
 	return db, err

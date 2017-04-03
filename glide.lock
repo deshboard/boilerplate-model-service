@@ -1,5 +1,5 @@
-hash: 38fe7e9c747fd8aa7c9dea01183218410607b94a3501b8174e054d9b8302c9c7
-updated: 2017-04-02T17:10:18.314971052+02:00
+hash: 17da550092aa6fee365e3deeffa2300172defd7eb7420fa854568ed640956301
+updated: 2017-04-03T22:29:47.606283175+02:00
 imports:
 - name: github.com/airbrake/gobrake
   version: 668876711219e8b0206e2994bf0a59d889c775aa
@@ -34,7 +34,7 @@ imports:
 - name: github.com/sagikazarmark/serverz
   version: 6795311fdd32a52d3decca847d2ae602e66af310
 - name: github.com/sagikazarmark/utilz
-  version: db205155fa3394b3114b60ef24a8f7287b3c3fca
+  version: 2792644c583555b438f5a4e6c9d491cc6e788a40
   subpackages:
   - str
 - name: github.com/Sirupsen/logrus
