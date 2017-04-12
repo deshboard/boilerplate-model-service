@@ -1,5 +1,5 @@
-hash: 17da550092aa6fee365e3deeffa2300172defd7eb7420fa854568ed640956301
-updated: 2017-04-03T22:29:47.606283175+02:00
+hash: f0a46f8202109b3a14ce45087834d4cb3e4ef780729fab1830d533eddc7e3f12
+updated: 2017-04-12T12:37:59.963907125+02:00
 imports:
 - name: github.com/airbrake/gobrake
   version: 668876711219e8b0206e2994bf0a59d889c775aa
@@ -34,9 +34,9 @@ imports:
 - name: github.com/sagikazarmark/serverz
   version: 6795311fdd32a52d3decca847d2ae602e66af310
 - name: github.com/sagikazarmark/utilz
-  version: 2792644c583555b438f5a4e6c9d491cc6e788a40
+  version: 7426f8ce6040ff4f68b318ede2cda34efd9f4e9d
   subpackages:
-  - str
+  - strings
 - name: github.com/Sirupsen/logrus
   version: ba1b36c82c5e05c4f912a88eab0dcd91a171688f
 - name: github.com/tinylib/msgp
@@ -58,7 +58,7 @@ imports:
   subpackages:
   - unix
 - name: google.golang.org/grpc
-  version: cdee119ee21e61eef7093a41ba148fa83585e143
+  version: 8050b9cbc271307e5a716a9d782803d09b0d6f2d
   subpackages:
   - codes
   - credentials
