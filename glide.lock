@@ -1,5 +1,5 @@
 hash: f0a46f8202109b3a14ce45087834d4cb3e4ef780729fab1830d533eddc7e3f12
-updated: 2017-04-12T12:54:04.271860339+02:00
+updated: 2017-05-03T16:57:58.197725948+02:00
 imports:
 - name: github.com/airbrake/gobrake
   version: 668876711219e8b0206e2994bf0a59d889c775aa
@@ -17,6 +17,7 @@ imports:
   version: 69b215d01a5606c843240eab4937eab3acee6530
   subpackages:
   - proto
+  - ptypes/any
 - name: github.com/jmoiron/sqlx
   version: f980a91bdc37abef88269b8f122d7de6352102f5
   subpackages:
@@ -57,11 +58,16 @@ imports:
   version: e24f485414aeafb646f6fca458b0bf869c0880a1
   subpackages:
   - unix
+- name: google.golang.org/genproto
+  version: de9f5e90fe9b278809363f08c2072d2f2a429de7
+  subpackages:
+  - googleapis/rpc/status
 - name: google.golang.org/grpc
-  version: 8050b9cbc271307e5a716a9d782803d09b0d6f2d
+  version: d2e1b51f33ff8c5e4a15560ff049d200e83726c5
   subpackages:
   - codes
   - credentials
+  - grpclb/grpc_lb_v1
   - grpclog
   - internal
   - keepalive
@@ -69,6 +75,7 @@ imports:
   - naming
   - peer
   - stats
+  - status
   - tap
   - transport
 - name: gopkg.in/airbrake/gobrake.v2
