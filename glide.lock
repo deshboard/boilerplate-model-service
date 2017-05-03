@@ -1,5 +1,5 @@
 hash: f0a46f8202109b3a14ce45087834d4cb3e4ef780729fab1830d533eddc7e3f12
-updated: 2017-05-03T16:57:58.197725948+02:00
+updated: 2017-05-03T17:52:09.289867318+02:00
 imports:
 - name: github.com/airbrake/gobrake
   version: 668876711219e8b0206e2994bf0a59d889c775aa
@@ -45,7 +45,7 @@ imports:
   subpackages:
   - msgp
 - name: golang.org/x/net
-  version: 61557ac0112b576429a0df080e1c2cef5dfbb642
+  version: feeb485667d1fdabe727840fe00adc22431bc86e
   subpackages:
   - context
   - http2
@@ -58,6 +58,13 @@ imports:
   version: e24f485414aeafb646f6fca458b0bf869c0880a1
   subpackages:
   - unix
+- name: golang.org/x/text
+  version: f28f36722d5ef2f9655ad3de1f248e3e52ad5ebd
+  subpackages:
+  - secure/bidirule
+  - transform
+  - unicode/bidi
+  - unicode/norm
 - name: google.golang.org/genproto
   version: de9f5e90fe9b278809363f08c2072d2f2a429de7
   subpackages:
