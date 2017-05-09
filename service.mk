@@ -17,7 +17,6 @@ start: docker-compose.override.yml ## Start docker env
 	mkdir -p var/
 	docker-compose up -d
 
-# TODO: fix path when migrate is released
 migrate: ## Run migrations
 	migrate -path ${PWD}/migrations/ -database mysql://${DB_USER}:${DB_PASS}@tcp\(${DB_HOST}:${DB_PORT}\)/${DB_NAME} up
 
