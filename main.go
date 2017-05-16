@@ -12,18 +12,19 @@ import (
 	"syscall"
 	"time"
 
-	"google.golang.org/grpc"
-
 	"github.com/Sirupsen/logrus"
 	"github.com/deshboard/boilerplate-model-service/apis/boilerplate"
 	"github.com/deshboard/boilerplate-model-service/app"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/sagikazarmark/healthz"
 	"github.com/sagikazarmark/serverz"
+	"github.com/sagikazarmark/utilz/util"
+	"google.golang.org/grpc"
 )
 
 func main() {
-	defer shutdown.Handle()
+	defer logger.Info("Shutting down")
+	defer shutdownManager.Shutdown()
 
 	flag.Parse()
 
@@ -32,7 +33,7 @@ func main() {
 		"commitHash":  app.CommitHash,
 		"buildDate":   app.BuildDate,
 		"environment": config.Environment,
-	}).Printf("Starting %s service", app.FriendlyServiceName)
+	}).Printf("Starting %s", app.FriendlyServiceName)
 
 	db, err := app.NewDB(config)
 	if err != nil {
@@ -40,7 +41,7 @@ func main() {
 	}
 
 	w := logger.Logger.WriterLevel(logrus.ErrorLevel)
-	shutdown.Register(w.Close)
+	shutdownManager.Register(w.Close)
 
 	serverManager := serverz.NewServerManager(logger)
 	errChan := make(chan error, 10)
@@ -55,7 +56,7 @@ func main() {
 			},
 			Name: "debug",
 		}
-		shutdown.RegisterAsFirst(debugServer.Close)
+		shutdownManager.RegisterAsFirst(debugServer.Close)
 
 		go serverManager.ListenAndStartServer(debugServer, config.DebugAddr)(errChan)
 	}
@@ -78,7 +79,8 @@ func main() {
 		},
 		Name: "health",
 	}
-	shutdown.RegisterAsFirst(healthServer.Close, serverz.ShutdownFunc(grpcServer.Stop))
+
+	shutdownManager.RegisterAsFirst(healthServer.Close, util.ShutdownFunc(grpcServer.Stop))
 
 	go serverManager.ListenAndStartServer(healthServer, config.HealthAddr)(errChan)
 	go serverManager.ListenAndStartServer(grpcServerWrapper, config.ServiceAddr)(errChan)
