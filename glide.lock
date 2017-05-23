@@ -1,10 +1,8 @@
-hash: 08de5022885d643c7a7dc0c0372697a88b6ffbc193a59fc7809badb296053ff0
-updated: 2017-05-16T17:08:53.411356727+02:00
+hash: bbf38e15054ba60bd5222019e74a7de0ed5900261e21601a7bbe48d8e2f98f03
+updated: 2017-05-23T22:56:24.260285669+02:00
 imports:
 - name: github.com/airbrake/gobrake
   version: 668876711219e8b0206e2994bf0a59d889c775aa
-- name: github.com/deshboard/boilerplate-proto
-  version: bfab9f9986b3b8b005c72e486f4a9dfe379f6012
 - name: github.com/evalphobia/logrus_fluent
   version: 86bb83d119886b935a52194cad48fd01815b0125
 - name: github.com/fluent/fluent-logger-golang
@@ -35,7 +33,7 @@ imports:
 - name: github.com/sagikazarmark/serverz
   version: 59a44e00a01fbec7f080dc8d0e13366100439f32
 - name: github.com/sagikazarmark/utilz
-  version: 5b9d3f7d70e84fd8c7ad3142775016998e117e4e
+  version: a25eb2121e4945c240475f89dd3bc1bdd6fef1c9
   subpackages:
   - errors
   - strings
@@ -91,4 +89,11 @@ imports:
   version: 668876711219e8b0206e2994bf0a59d889c775aa
 - name: gopkg.in/gemnasium/logrus-airbrake-hook.v2
   version: bfee1239d796830ca346767650cce5ba90d58c57
-testImports: []
+testImports:
+- name: github.com/DATA-DOG/go-txdb
+  version: f1e254a3259d583ea9aeaa49ef37013bc818ab85
+- name: github.com/DATA-DOG/godog
+  version: 92fbee719c9593813b24a6ef042bcad40324ede4
+  subpackages:
+  - colors
+  - gherkin
