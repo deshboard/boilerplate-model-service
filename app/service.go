@@ -1,19 +1,20 @@
 package app
 
 import (
+	"database/sql"
+
 	"github.com/Sirupsen/logrus"
-	"github.com/jmoiron/sqlx"
 )
 
 // Service implements the Protocol Buffer RPC server
 type Service struct {
-	db *sqlx.DB
+	db *sql.DB
 
 	logger logrus.FieldLogger
 }
 
 // NewService creates a new service object
-func NewService(db *sqlx.DB, logger logrus.FieldLogger) *Service {
+func NewService(db *sql.DB, logger logrus.FieldLogger) *Service {
 	return &Service{
 		db: db,
 

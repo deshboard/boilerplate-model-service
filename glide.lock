@@ -1,5 +1,5 @@
-hash: bbf38e15054ba60bd5222019e74a7de0ed5900261e21601a7bbe48d8e2f98f03
-updated: 2017-05-23T22:56:24.260285669+02:00
+hash: 4b7ebcae43147a993e92a1fbf05e7ca951e4c92fc4fec01a0ba9cee34df5f2dd
+updated: 2017-05-27T12:24:13.62484793+02:00
 imports:
 - name: github.com/airbrake/gobrake
   version: 668876711219e8b0206e2994bf0a59d889c775aa
@@ -16,10 +16,6 @@ imports:
   subpackages:
   - proto
   - ptypes/any
-- name: github.com/jmoiron/sqlx
-  version: f980a91bdc37abef88269b8f122d7de6352102f5
-  subpackages:
-  - reflectx
 - name: github.com/kelseyhightower/envconfig
   version: f611eb38b3875cc3bd991ca91c51d06446afa14c
 - name: github.com/opentracing/opentracing-go
@@ -33,10 +29,9 @@ imports:
 - name: github.com/sagikazarmark/serverz
   version: 59a44e00a01fbec7f080dc8d0e13366100439f32
 - name: github.com/sagikazarmark/utilz
-  version: a25eb2121e4945c240475f89dd3bc1bdd6fef1c9
+  version: 616992984d7477c8fcf31bea6a64b296f26e82ce
   subpackages:
   - errors
-  - strings
   - util
 - name: github.com/Sirupsen/logrus
   version: ba1b36c82c5e05c4f912a88eab0dcd91a171688f
