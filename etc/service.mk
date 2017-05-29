@@ -21,10 +21,10 @@ docker-compose.override.yml: ## Create docker-compose override file
 	cp docker-compose.override.yml.example docker-compose.override.yml
 
 setup::
-	mkdir -p var/
+	mkdir -p .docker/
 
 clean::
-	rm -rf var/ docker-compose.override.yml
+	rm -rf .docker/ docker-compose.override.yml
 
 envcheck::
 	$(call executable_check,Docker Compose,docker-compose)
