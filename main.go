@@ -15,6 +15,12 @@ import (
 	"github.com/Sirupsen/logrus"
 	"github.com/deshboard/boilerplate-model-service/app"
 	_ "github.com/go-sql-driver/mysql"
+	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+	grpc_logrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
+	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
+	grpc_opentracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
+	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sagikazarmark/healthz"
 	"github.com/sagikazarmark/serverz"
 	"github.com/sagikazarmark/utilz/util"
@@ -60,7 +66,23 @@ func main() {
 		go serverManager.ListenAndStartServer(debugServer, config.DebugAddr)(errChan)
 	}
 
-	grpcServer := grpc.NewServer()
+	grpcServer := grpc.NewServer(
+		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
+			grpc_opentracing.StreamServerInterceptor(grpc_opentracing.WithTracer(tracer)),
+			grpc_prometheus.StreamServerInterceptor,
+			grpc_logrus.StreamServerInterceptor(logger),
+			grpc_recovery.StreamServerInterceptor(),
+		)),
+		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
+			grpc_opentracing.UnaryServerInterceptor(grpc_opentracing.WithTracer(tracer)),
+			grpc_prometheus.UnaryServerInterceptor,
+			grpc_logrus.UnaryServerInterceptor(logger),
+			grpc_recovery.UnaryServerInterceptor(),
+		)),
+	)
+
+	grpc_prometheus.Register(grpcServer)
+
 	grpcServerWrapper := &serverz.NamedServer{
 		Server: &serverz.GrpcServer{grpcServer},
 		Name:   "grpc",
@@ -70,6 +92,12 @@ func main() {
 	status := healthz.NewStatusChecker(healthz.Healthy)
 	readiness := healthz.NewCheckers(status, healthz.NewPingChecker(db))
 	healthHandler := healthz.NewHealthServiceHandler(serviceHealth, readiness)
+
+	if config.MetricsEnabled {
+		healthHandler := healthHandler.(*http.ServeMux)
+		healthHandler.Handle("/", promhttp.Handler())
+	}
+
 	healthServer := &serverz.NamedServer{
 		Server: &http.Server{
 			Handler:  healthHandler,
