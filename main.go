@@ -15,16 +15,10 @@ import (
 	"github.com/Sirupsen/logrus"
 	"github.com/deshboard/boilerplate-model-service/app"
 	_ "github.com/go-sql-driver/mysql"
-	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
-	grpc_logrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
-	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
-	grpc_opentracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
-	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sagikazarmark/healthz"
 	"github.com/sagikazarmark/serverz"
 	"github.com/sagikazarmark/utilz/util"
-	"google.golang.org/grpc"
 )
 
 func main() {
@@ -38,12 +32,7 @@ func main() {
 		"commitHash":  app.CommitHash,
 		"buildDate":   app.BuildDate,
 		"environment": config.Environment,
-	}).Printf("Starting %s", app.FriendlyServiceName)
-
-	db, err := app.NewDB(config)
-	if err != nil {
-		logger.Panic(err)
-	}
+	}).Infof("Starting %s", app.FriendlyServiceName)
 
 	w := logger.Logger.WriterLevel(logrus.ErrorLevel)
 	shutdownManager.Register(w.Close)
@@ -61,27 +50,14 @@ func main() {
 			},
 			Name: "debug",
 		}
-		shutdownManager.RegisterAsFirst(debugServer.Close)
 
+		shutdownManager.RegisterAsFirst(debugServer.Close)
 		go serverManager.ListenAndStartServer(debugServer, config.DebugAddr)(errChan)
 	}
 
-	grpcServer := grpc.NewServer(
-		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
-			grpc_opentracing.StreamServerInterceptor(grpc_opentracing.WithTracer(tracer)),
-			grpc_prometheus.StreamServerInterceptor,
-			grpc_logrus.StreamServerInterceptor(logger),
-			grpc_recovery.StreamServerInterceptor(),
-		)),
-		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
-			grpc_opentracing.UnaryServerInterceptor(grpc_opentracing.WithTracer(tracer)),
-			grpc_prometheus.UnaryServerInterceptor,
-			grpc_logrus.UnaryServerInterceptor(logger),
-			grpc_recovery.UnaryServerInterceptor(),
-		)),
-	)
+	grpcServer := createGrpcServer()
 
-	grpc_prometheus.Register(grpcServer)
+	bootstrap(grpcServer)
 
 	grpcServerWrapper := &serverz.NamedServer{
 		Server: &serverz.GrpcServer{grpcServer},
@@ -89,13 +65,21 @@ func main() {
 	}
 
 	serviceHealth := healthz.NewTCPChecker(config.ServiceAddr, healthz.WithTCPTimeout(2*time.Second))
+	checkerCollector.RegisterChecker(healthz.LivenessCheck, serviceHealth)
+
 	status := healthz.NewStatusChecker(healthz.Healthy)
-	readiness := healthz.NewCheckers(status, healthz.NewPingChecker(db))
-	healthHandler := healthz.NewHealthServiceHandler(serviceHealth, readiness)
+	checkerCollector.RegisterChecker(healthz.ReadinessCheck, status)
+
+	healthService := checkerCollector.NewHealthService()
+	healthHandler := http.NewServeMux()
+
+	healthHandler.Handle("/healthz", healthService.Handler(healthz.LivenessCheck))
+	healthHandler.Handle("/readiness", healthService.Handler(healthz.ReadinessCheck))
 
 	if config.MetricsEnabled {
-		healthHandler := healthHandler.(*http.ServeMux)
-		healthHandler.Handle("/", promhttp.Handler())
+		logger.Debug("Serving metrics under health endpoint")
+
+		healthHandler.Handle("/metrics", promhttp.Handler())
 	}
 
 	healthServer := &serverz.NamedServer{
@@ -106,10 +90,9 @@ func main() {
 		Name: "health",
 	}
 
-	shutdownManager.RegisterAsFirst(healthServer.Close, util.ShutdownFunc(grpcServer.Stop))
-
-	go serverManager.ListenAndStartServer(healthServer, config.HealthAddr)(errChan)
+	shutdownManager.RegisterAsFirst(util.ShutdownFunc(grpcServer.Stop), healthServer.Close)
 	go serverManager.ListenAndStartServer(grpcServerWrapper, config.ServiceAddr)(errChan)
+	go serverManager.ListenAndStartServer(healthServer, config.HealthAddr)(errChan)
 
 	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
 
@@ -130,6 +113,8 @@ MainLoop:
 		case s := <-signalChan:
 			logger.Infof(fmt.Sprintf("Captured %v", s))
 			status.SetStatus(healthz.Unhealthy)
+
+			logger.Debugf("Shutting down with timeout %v", config.ShutdownTimeout)
 
 			ctx, cancel := context.WithTimeout(context.Background(), config.ShutdownTimeout)
 			wg := &sync.WaitGroup{}
