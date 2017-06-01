@@ -3,15 +3,37 @@
 package app
 
 import (
+	"fmt"
+
 	txdb "github.com/DATA-DOG/go-txdb"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/kelseyhightower/envconfig"
 )
 
 func init() {
-	config := &Configuration{}
+	config := &testConfiguration{}
 
 	envconfig.MustProcess("", config)
 
-	txdb.Register("txdb", "mysql", buildDSN(config))
+	txdb.Register(
+		"txdb",
+		"mysql",
+		fmt.Sprintf(
+			"%s:%s@tcp(%s:%d)/%s?parseTime=true",
+			config.DbUser,
+			config.DbPass,
+			config.DbHost,
+			config.DbPort,
+			config.DbName,
+		),
+	)
+}
+
+// testConfiguration is a subste of main.Configuration necessary for testing.
+type testConfiguration struct {
+	DbHost string `split_words:"true" required:"true"`
+	DbPort int    `split_words:"true" required:"true"`
+	DbUser string `split_words:"true" required:"true"`
+	DbPass string `split_words:"true" required:"true"`
+	DbName string `split_words:"true" required:"true"`
 }

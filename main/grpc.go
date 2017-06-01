@@ -1,13 +1,11 @@
 package main
 
 import (
-	"github.com/deshboard/boilerplate-model-service/app"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_logrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	grpc_opentracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
-	"github.com/sagikazarmark/healthz"
 	"google.golang.org/grpc"
 )
 
@@ -28,17 +26,4 @@ func createGrpcServer() *grpc.Server {
 	)
 
 	return server
-}
-
-func bootstrap(server *grpc.Server) {
-	db, err := app.NewDB(config)
-	if err != nil {
-		logger.Panic(err)
-	}
-
-	checkerCollector.RegisterChecker(healthz.ReadinessCheck, healthz.NewPingChecker(db))
-
-	// Register servers here
-
-	grpc_prometheus.Register(server)
 }
