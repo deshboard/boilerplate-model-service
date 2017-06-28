@@ -16,15 +16,6 @@ type configuration struct {
 	DebugAddr       string        `ignored:"true"`
 	ShutdownTimeout time.Duration `ignored:"true"`
 
-	AirbrakeEnabled   bool   `split_words:"true"`
-	AirbrakeEndpoint  string `split_words:"true"`
-	AirbrakeProjectID int64  `envconfig:"airbrake_project_id"`
-	AirbrakeAPIKey    string `envconfig:"airbrake_api_key"`
-
-	FluentEnabled bool   `split_words:"true"`
-	FluentHost    string `split_words:"true"`
-	FluentPort    int    `split_words:"true" default:"24224"`
-
 	DbHost string `split_words:"true" required:"true"`
 	DbPort int    `split_words:"true" required:"true"`
 	DbUser string `split_words:"true" required:"true"`
