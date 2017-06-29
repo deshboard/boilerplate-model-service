@@ -17,7 +17,7 @@ type configuration struct {
 	ShutdownTimeout time.Duration `ignored:"true"`
 
 	DbHost string `split_words:"true" required:"true"`
-	DbPort int    `split_words:"true" required:"true"`
+	DbPort int    `split_words:"true" default:"3306"`
 	DbUser string `split_words:"true" required:"true"`
 	DbPass string `split_words:"true" required:"true"`
 	DbName string `split_words:"true" required:"true"`
