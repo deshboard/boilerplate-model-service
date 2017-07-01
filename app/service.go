@@ -7,20 +7,20 @@ import (
 	"github.com/goph/emperror"
 )
 
-// Service implements the Protocol Buffer RPC server
+// Service implements the RPC server.
 type Service struct {
 	db *sql.DB
 
-	logger       log.Logger
-	errorHandler emperror.Handler
+	Logger       log.Logger
+	ErrorHandler emperror.Handler
 }
 
-// NewService creates a new service object
-func NewService(db *sql.DB, logger log.Logger, errorHandler emperror.Handler) *Service {
+// NewService creates a new service object.
+func NewService(db *sql.DB) *Service {
 	return &Service{
 		db: db,
 
-		logger:       logger,
-		errorHandler: errorHandler,
+		Logger:       log.NewNopLogger(),
+		ErrorHandler: emperror.NewNullHandler(),
 	}
 }

@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// configuration holds any kind of config that is necessary for running
+// configuration holds any kind of config that is necessary for running.
 type configuration struct {
 	// Recommended values are: production, development, staging, release/123, etc
 	Environment string `default:"production"`
@@ -23,7 +23,7 @@ type configuration struct {
 	DbName string `split_words:"true" required:"true"`
 }
 
-// flags configures a flagset
+// flags configures a flagset.
 //
 // Note: the current behaviour relies on the fact that at this point environment variables are already loaded.
 func (c *configuration) flags(flags *flag.FlagSet) {
