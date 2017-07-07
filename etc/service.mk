@@ -17,9 +17,6 @@ else
 	migrate -path ${PWD}/migrations/ -database mysql://${DB_USER}:${DB_PASS}@tcp\(${DB_HOST}:${DB_PORT}\)/${DB_NAME} up
 endif
 
-docker-compose.override.yml: ## Create docker-compose override file
-	cp docker-compose.override.yml.example docker-compose.override.yml
-
 setup::
 	mkdir -p .docker/
 
