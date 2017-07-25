@@ -1,5 +1,5 @@
-hash: 297ca9dae9290111d5001f800bf7efe77d8ed19c9b9b8611ed8e2817305124cd
-updated: 2017-07-23T00:45:18.156706835+02:00
+hash: b46696078881afdbc642e129ee1df67101bb7392d6a2b5203bd62059de948630
+updated: 2017-07-26T01:47:27.612909078+02:00
 imports:
 - name: github.com/beorn7/perks
   version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
@@ -54,6 +54,8 @@ imports:
   - util/metautils
 - name: github.com/grpc-ecosystem/go-grpc-prometheus
   version: 6b7015e65d366bf3f19b2b2a000a831940f0f7e0
+- name: github.com/joho/godotenv
+  version: 726cc8b906e3d31c70a9671c90a13716a8d3f50d
 - name: github.com/kelseyhightower/envconfig
   version: f611eb38b3875cc3bd991ca91c51d06446afa14c
 - name: github.com/kr/logfmt

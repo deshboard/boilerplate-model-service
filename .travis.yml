@@ -38,7 +38,7 @@ before_script:
     - make migrate
 
 script:
-    - make ARGS="-tags='acceptance integration' -v" check
+    - make ARGS="-tags='acceptance integration' -v -randomize" check
     - if [[ $TRAVIS_TAG = "$VERSION" ]]; then export DOCKER_LATEST=true; fi
     - make docker
 
