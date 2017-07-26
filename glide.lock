@@ -1,5 +1,5 @@
-hash: b46696078881afdbc642e129ee1df67101bb7392d6a2b5203bd62059de948630
-updated: 2017-07-26T01:47:27.612909078+02:00
+hash: e70aa5c8b489dcb43d2fe5b36c1ef3daf2edf0e735b170063b8097640a4f255d
+updated: 2017-07-27T00:32:05.002844501+02:00
 imports:
 - name: github.com/beorn7/perks
   version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
@@ -40,7 +40,7 @@ imports:
   - internal/ext
   - named
 - name: github.com/goph/stdlib
-  version: 5b726a57f399a0fcae1040c8d928330b8aac992d
+  version: 06da0be770f5309486af100793d48842f016fda8
   subpackages:
   - errors
   - ext
