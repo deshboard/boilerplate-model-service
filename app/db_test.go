@@ -29,10 +29,10 @@ func init() {
 	)
 }
 
-// testConfiguration is a subset of main.Configuration necessary for testing.
+// testConfiguration is a subset of main.configuration necessary for testing.
 type testConfiguration struct {
 	DbHost string `split_words:"true" required:"true"`
-	DbPort int    `split_words:"true" required:"true"`
+	DbPort int    `split_words:"true" default:"3306"`
 	DbUser string `split_words:"true" required:"true"`
 	DbPass string `split_words:"true" required:"true"`
 	DbName string `split_words:"true" required:"true"`
