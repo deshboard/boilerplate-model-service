@@ -15,7 +15,7 @@ func init() {
 		"txdb",
 		"mysql",
 		fmt.Sprintf(
-			"%s:%s@tcp(%s:%d)/%s?parseTime=true",
+			"%s:%s@tcp(%s:%s)/%s?parseTime=true",
 			os.MustEnv("DB_USER"),
 			os.MustEnv("DB_PASS"),
 			os.MustEnv("DB_HOST"),
