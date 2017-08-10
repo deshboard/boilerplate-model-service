@@ -1,6 +1,6 @@
 // +build acceptance integration
 
-package app
+package app_test
 
 import (
 	"fmt"
