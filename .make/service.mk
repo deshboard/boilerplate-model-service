@@ -22,6 +22,3 @@ setup::
 
 clean::
 	rm -rf .docker/ docker-compose.override.yml
-
-envcheck::
-	$(call executable_check,Docker Compose,docker-compose)
