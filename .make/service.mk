@@ -1,6 +1,6 @@
 # Service specific Makefile
 
-include etc/proto.mk
+include .make/proto.mk
 
 DB_USER ?= root
 DB_PASS ?=
