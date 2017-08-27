@@ -1,5 +1,5 @@
-hash: 4e2b907866e0993593f9b4d46d4320833eb2e0803e6906d7ad2f80b4ced04dd7
-updated: 2017-08-23T05:52:40.459893684+02:00
+hash: 8bac4d029dd4ee48f0d470178706be4372eba6e2c92119b0f0126890da81c657
+updated: 2017-08-27T23:39:14.841741746+02:00
 imports:
 - name: github.com/beorn7/perks
   version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
@@ -38,11 +38,12 @@ imports:
   - internal/errors
   - internal/ext
 - name: github.com/goph/stdlib
-  version: 7ade954fe887bc3afdc34edb2e8d6a43261499a7
+  version: e16d3532f6a9c8983885e070f36bd6e713bd093c
   subpackages:
   - errors
   - expvar
   - ext
+  - log
   - net
   - net/http
   - net/http/pprof
@@ -108,7 +109,7 @@ imports:
   - lex/httplex
   - trace
 - name: golang.org/x/text
-  version: e56139fd9c5bc7244c76116c68e500765bb6db6b
+  version: ac87088df8ef557f1e32cd00ed0b6fbc3f7ddafb
   subpackages:
   - secure/bidirule
   - transform
