@@ -15,7 +15,7 @@ import (
 
 // newGrpcServer creates the main server instance for the service.
 func newGrpcServer(appCtx *application) *aio.Server {
-	serviceChecker := healthz.NewTCPChecker(appCtx.config.ServiceAddr, healthz.WithTCPTimeout(2*time.Second))
+	serviceChecker := healthz.NewTCPChecker(appCtx.config.GrpcAddr, healthz.WithTCPTimeout(2*time.Second))
 	appCtx.healthCollector.RegisterChecker(healthz.LivenessCheck, serviceChecker)
 
 	db, err := sql.Open(
@@ -46,6 +46,6 @@ func newGrpcServer(appCtx *application) *aio.Server {
 		Server: &grpc.Server{Server: server},
 		Name:   "grpc",
 		Closer: db,
-		Addr:   net.ResolveVirtualAddr("tcp", appCtx.config.ServiceAddr),
+		Addr:   net.ResolveVirtualAddr("tcp", appCtx.config.GrpcAddr),
 	}
 }
