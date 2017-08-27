@@ -10,13 +10,6 @@ import (
 // ServiceOption sets options in the Service.
 type ServiceOption func(s *Service)
 
-// DB returns a ServiceOption that sets the DB object for the service.
-func DB(db *sql.DB) ServiceOption {
-	return func(s *Service) {
-		s.db = db
-	}
-}
-
 // Logger returns a ServiceOption that sets the logger for the service.
 func Logger(l log.Logger) ServiceOption {
 	return func(s *Service) {
@@ -40,8 +33,10 @@ type Service struct {
 }
 
 // NewService creates a new service object.
-func NewService(opts ...ServiceOption) *Service {
+func NewService(db *sql.DB, opts ...ServiceOption) *Service {
 	s := new(Service)
+
+	s.db = db
 
 	for _, opt := range opts {
 		opt(s)
