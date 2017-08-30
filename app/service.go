@@ -3,8 +3,8 @@ package app
 import (
 	"database/sql"
 
-	"github.com/goph/stdlib/errors"
-	"github.com/goph/stdlib/log"
+	"github.com/go-kit/kit/log"
+	"github.com/goph/emperror"
 )
 
 // ServiceOption sets options in the Service.
@@ -18,7 +18,7 @@ func Logger(l log.Logger) ServiceOption {
 }
 
 // ErrorHandler returns a ServiceOption that sets the error handler for the service.
-func ErrorHandler(l errors.Handler) ServiceOption {
+func ErrorHandler(l emperror.Handler) ServiceOption {
 	return func(s *Service) {
 		s.errorHandler = l
 	}
@@ -29,7 +29,7 @@ type Service struct {
 	db *sql.DB
 
 	logger       log.Logger
-	errorHandler errors.Handler
+	errorHandler emperror.Handler
 }
 
 // NewService creates a new service object.
@@ -49,7 +49,7 @@ func NewService(db *sql.DB, opts ...ServiceOption) *Service {
 
 	// Default error handler
 	if s.errorHandler == nil {
-		s.errorHandler = errors.NewNopHandler()
+		s.errorHandler = emperror.NewNopHandler()
 	}
 
 	return s
