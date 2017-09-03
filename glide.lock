@@ -1,5 +1,5 @@
-hash: 094e761f9cd1a9dd6bc7884489cc944f6c4de433db40d19e040c4f87287b6bb5
-updated: 2017-08-31T00:04:45.738203269+02:00
+hash: f45354680ecc8f64e65d0a15cbda604e80eb99b8653570536e72d1f79d3faf8c
+updated: 2017-09-03T19:31:54.248954852+02:00
 imports:
 - name: github.com/beorn7/perks
   version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
@@ -33,13 +33,10 @@ imports:
 - name: github.com/goph/healthz
   version: 571dac1216f2f4f920458b3b93f5835ec1bd35c6
 - name: github.com/goph/serverz
-  version: 0db668bdb36032ac5e0154fba5b912fed99c2835
+  version: a7e07fc73d8dddc4892648b8f990b518233bcbad
   subpackages:
-  - aio
   - grpc
   - internal
-  - internal/errors
-  - internal/ext
 - name: github.com/goph/stdlib
   version: bdfa619d30dc9afa78145c326ae0d9ec8e4edcc0
   subpackages:
@@ -110,7 +107,7 @@ imports:
   - lex/httplex
   - trace
 - name: golang.org/x/text
-  version: 18c65dde6afd36dbc39197ca72008895b8dfbfb6
+  version: bd91bbf73e9a4a801adbfb97133c992678533126
   subpackages:
   - secure/bidirule
   - transform
@@ -141,7 +138,7 @@ testImports:
 - name: github.com/DATA-DOG/go-txdb
   version: f1e254a3259d583ea9aeaa49ef37013bc818ab85
 - name: github.com/DATA-DOG/godog
-  version: 70f777599da0f5de682b8848d356611c1738b695
+  version: 4dc98b0e2b130c3c9d06868a050320e5b310d3e7
   subpackages:
   - colors
   - gherkin
