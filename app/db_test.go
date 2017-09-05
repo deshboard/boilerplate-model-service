@@ -5,12 +5,15 @@ package app_test
 import (
 	"fmt"
 
-	txdb "github.com/DATA-DOG/go-txdb"
+	"github.com/DATA-DOG/go-txdb"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/goph/stdlib/os"
+	"github.com/joho/godotenv"
 )
 
 func init() {
+	_ = godotenv.Load("../.env.test", "../.env.dist")
+
 	txdb.Register(
 		"txdb",
 		"mysql",
