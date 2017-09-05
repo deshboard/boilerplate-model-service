@@ -1,13 +1,16 @@
 // +build acceptance integration
 
-package app_test
+package model_test
 
 import (
+	"testing"
+
+	"database/sql"
 	"fmt"
+	"os"
 
 	"github.com/DATA-DOG/go-txdb"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/goph/stdlib/os"
 	"github.com/joho/godotenv"
 )
 
@@ -19,11 +22,22 @@ func init() {
 		"mysql",
 		fmt.Sprintf(
 			"%s:%s@tcp(%s:%s)/%s?parseTime=true",
-			os.MustEnv("DB_USER"),
-			os.MustEnv("DB_PASS"),
-			os.MustEnv("DB_HOST"),
-			os.MustEnv("DB_PORT"),
-			os.MustEnv("DB_NAME"),
+			os.Getenv("DB_USER"),
+			os.Getenv("DB_PASS"),
+			os.Getenv("DB_HOST"),
+			os.Getenv("DB_PORT"),
+			os.Getenv("DB_NAME"),
 		),
 	)
+}
+
+func TestDbConnection(t *testing.T) {
+	db, err := sql.Open("txdb", "db connection check")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if err := db.Ping(); err != nil {
+		t.Fatal(err)
+	}
 }
