@@ -1,5 +1,5 @@
-hash: 0252a2026958d6e8c8b8e9bb80bbbce935bf457f991c15eb9722c6ca5e9d0a59
-updated: 2017-09-05T12:05:59.715918057+02:00
+hash: 77eb05f0dc9212a29e5bb3867f748b372cd63af64721c3d1fadd5b1ef8f90e28
+updated: 2017-09-06T18:23:23.480342253+02:00
 imports:
 - name: github.com/beorn7/perks
   version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
@@ -37,14 +37,13 @@ imports:
   - grpc
   - internal
 - name: github.com/goph/stdlib
-  version: bdfa619d30dc9afa78145c326ae0d9ec8e4edcc0
+  version: 5703fbf5f4f844082ae11de7e6e28deb61dba669
   subpackages:
   - expvar
   - ext
   - net
   - net/http
   - net/http/pprof
-  - os
   - x/net/trace
 - name: github.com/grpc-ecosystem/go-grpc-middleware
   version: 645b33ed7ba8739747bf2df55d0349d4bba2e7f6
