@@ -1,6 +1,6 @@
 // +build acceptance integration
 
-package model_test
+package app_test
 
 import (
 	"testing"
@@ -11,12 +11,9 @@ import (
 
 	"github.com/DATA-DOG/go-txdb"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/joho/godotenv"
 )
 
 func init() {
-	_ = godotenv.Load("../.env.test", "../.env.dist")
-
 	txdb.Register(
 		"txdb",
 		"mysql",
@@ -37,7 +34,9 @@ func TestDbConnection(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if err := db.Ping(); err != nil {
+	// Ping doesn't work at the moment: https://github.com/DATA-DOG/go-txdb/issues/5
+	//if err := db.Ping(); err != nil {
+	if _, err := db.Query("SELECT version()"); err != nil {
 		t.Fatal(err)
 	}
 }
