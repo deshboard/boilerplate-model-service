@@ -7,7 +7,7 @@
     <kind value="DIRECTORY" />
     <directory value="$PROJECT_DIR$/app" />
     <filePath value="$PROJECT_DIR$" />
-    <pattern value="^TestDbConnection$" />
+    <pattern value="^TestDbConnection(.*)?$" />
     <method />
   </configuration>
 </component>

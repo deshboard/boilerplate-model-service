@@ -34,9 +34,7 @@ func TestDbConnection(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// Ping doesn't work at the moment: https://github.com/DATA-DOG/go-txdb/issues/5
-	//if err := db.Ping(); err != nil {
-	if _, err := db.Query("SELECT version()"); err != nil {
+	if err := db.Ping(); err != nil {
 		t.Fatal(err)
 	}
 }

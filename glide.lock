@@ -1,5 +1,5 @@
 hash: 77eb05f0dc9212a29e5bb3867f748b372cd63af64721c3d1fadd5b1ef8f90e28
-updated: 2017-09-06T18:23:23.480342253+02:00
+updated: 2017-09-07T14:19:36.340524254+02:00
 imports:
 - name: github.com/beorn7/perks
   version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
@@ -130,7 +130,7 @@ imports:
   - transport
 testImports:
 - name: github.com/DATA-DOG/go-txdb
-  version: f1e254a3259d583ea9aeaa49ef37013bc818ab85
+  version: c3389523873340a9bdbbb51442197f86a176ad94
 - name: github.com/DATA-DOG/godog
   version: 4dc98b0e2b130c3c9d06868a050320e5b310d3e7
   subpackages:
