@@ -13,19 +13,19 @@ import (
 )
 
 // newGrpcServer creates the main server instance for the service.
-func newGrpcServer(appCtx *application) serverz.Server {
-	serviceChecker := healthz.NewTCPChecker(appCtx.config.GrpcAddr, healthz.WithTCPTimeout(2*time.Second))
-	appCtx.healthCollector.RegisterChecker(healthz.LivenessCheck, serviceChecker)
+func newGrpcServer(a *application) serverz.Server {
+	serviceChecker := healthz.NewTCPChecker(a.config.GrpcAddr, healthz.WithTCPTimeout(2*time.Second))
+	a.healthCollector.RegisterChecker(healthz.LivenessCheck, serviceChecker)
 
 	db, err := sql.Open(
 		"mysql",
 		fmt.Sprintf(
 			"%s:%s@tcp(%s:%d)/%s?parseTime=true",
-			appCtx.config.DbUser,
-			appCtx.config.DbPass,
-			appCtx.config.DbHost,
-			appCtx.config.DbPort,
-			appCtx.config.DbName,
+			a.config.DbUser,
+			a.config.DbPass,
+			a.config.DbHost,
+			a.config.DbPort,
+			a.config.DbName,
 		),
 	)
 
@@ -33,9 +33,9 @@ func newGrpcServer(appCtx *application) serverz.Server {
 		panic(err)
 	}
 
-	appCtx.healthCollector.RegisterChecker(healthz.ReadinessCheck, healthz.NewPingChecker(db))
+	a.healthCollector.RegisterChecker(healthz.ReadinessCheck, healthz.NewPingChecker(db))
 
-	server := createGrpcServer(appCtx)
+	server := createGrpcServer(a)
 
 	// Register servers here
 
@@ -44,8 +44,8 @@ func newGrpcServer(appCtx *application) serverz.Server {
 	return &serverz.AppServer{
 		Server: &grpc.Server{Server: server},
 		Name:   "grpc",
-		Addr:   serverz.NewAddr("tcp", appCtx.config.GrpcAddr),
-		Logger: appCtx.logger,
+		Addr:   serverz.NewAddr("tcp", a.config.GrpcAddr),
+		Logger: a.logger,
 		Closer: db,
 	}
 }
