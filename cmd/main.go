@@ -47,7 +47,6 @@ func main() {
 			debug.NewServer,
 			debug.NewHealthCollector,
 		),
-		fx.Invoke(grpc_prometheus.Register, RegisterPrometheusHandler),
 		fx.Invoke(func(collector healthz.Collector) {
 			collector.RegisterChecker(healthz.ReadinessCheck, status)
 		}),
@@ -67,6 +66,10 @@ func main() {
 			NewDatabaseConfig,
 			sql.NewConnection,
 		),
+
+		// Make sure to register this invoke function as the last,
+		// so all registered gRPC services are exposed in metrics.
+		fx.Invoke(grpc_prometheus.Register, RegisterPrometheusHandler),
 	)
 
 	err := app.Err()
