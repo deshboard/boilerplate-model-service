@@ -1,9 +1,8 @@
 package main
 
 import (
-	"fmt"
-
 	"database/sql"
+	"fmt"
 
 	"github.com/deshboard/boilerplate-model-service/app"
 	"github.com/go-kit/kit/log"
