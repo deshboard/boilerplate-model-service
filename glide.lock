@@ -1,5 +1,5 @@
-hash: dfd8da242d71c3d6ae9351ff13e72bea1fdf0bc51d49bc44cdae98746e42d066
-updated: 2017-10-15T13:33:07.377914445+02:00
+hash: a50149ca0b995e0454cbaf7bdaa7b7e2df272ab6057df0e95497059a49093119
+updated: 2017-10-18T21:39:23.415651689+02:00
 imports:
 - name: github.com/beorn7/perks
   version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
@@ -30,13 +30,14 @@ imports:
   subpackages:
   - log
 - name: github.com/goph/fxt
-  version: caed0d051cafaa5e612d576f71e1d202cce0b60e
+  version: c162a07519f3cc5bf7241a91bf5aa72fac95d838
   subpackages:
   - database/sql
   - debug
   - errors
   - grpc
   - log
+  - metrics/prometheus
   - tracing
 - name: github.com/goph/healthz
   version: 571dac1216f2f4f920458b3b93f5835ec1bd35c6
