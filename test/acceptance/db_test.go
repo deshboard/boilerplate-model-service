@@ -1,6 +1,4 @@
-// +build integration
-
-package app_test
+package acceptance
 
 import (
 	"testing"

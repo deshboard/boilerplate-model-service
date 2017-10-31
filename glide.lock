@@ -1,5 +1,5 @@
-hash: 399a29678d24455de32f0c712f5d788d55c5941d282245172902c191584cf9b3
-updated: 2017-10-26T14:18:34.921914918+02:00
+hash: 8af33680cbeb89e9bc36f184aeebf0ae44d6f1b683e58c241ca5f031fa662d85
+updated: 2017-10-31T01:12:09.532764136+01:00
 imports:
 - name: github.com/beorn7/perks
   version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
@@ -30,7 +30,7 @@ imports:
   subpackages:
   - log
 - name: github.com/goph/fxt
-  version: 14a49380464fc2dd32d7f2999d8de9ce8ff73540
+  version: 6654931ac99bb2bcb9eb20e107ff5f42a9cfa64e
   subpackages:
   - database/sql
   - debug
