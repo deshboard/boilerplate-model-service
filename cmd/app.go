@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/deshboard/boilerplate-model-service/app"
+	"github.com/deshboard/boilerplate-model-service/pkg/app"
 	"github.com/go-kit/kit/log"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/goph/emperror"
