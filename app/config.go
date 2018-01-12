@@ -1,6 +1,10 @@
 package app
 
-import "time"
+import (
+	"time"
+
+	fxsql "github.com/goph/fxt/database/sql"
+)
 
 // Config holds any kind of configuration that comes from the outside world and is necessary for running the application.
 type Config struct {
@@ -30,9 +34,5 @@ type Config struct {
 	GrpcEnableReflection bool `split_words:"true"`
 
 	// Database connection details
-	DbHost string `env:"" split_words:"true" required:"true"`
-	DbPort int    `env:"" split_words:"true" default:"3306"`
-	DbUser string `env:"" split_words:"true" required:"true"`
-	DbPass string `env:"" split_words:"true"` // Required removed for now because empty value is not supported by Viper
-	DbName string `env:"" split_words:"true" required:"true"`
+	Db fxsql.AppConfig `prefix:"db"`
 }

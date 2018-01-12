@@ -69,12 +69,8 @@ func NewDatabaseConfig(config Config) *fxsql.Config {
 	return fxsql.NewConfig(
 		"mysql",
 		fmt.Sprintf(
-			"%s:%s@tcp(%s:%d)/%s?parseTime=true",
-			config.DbUser,
-			config.DbPass,
-			config.DbHost,
-			config.DbPort,
-			config.DbName,
+			"%s?parseTime=true",
+			config.Db.Dsn(),
 		),
 	)
 }
