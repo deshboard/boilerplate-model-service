@@ -1,10 +1,6 @@
-hash: 6fccb95b58d1ace17bce9739f813599a7124ae5eab5cf4075a5eb55df69e6621
-updated: 2018-01-12T17:55:07.144635368+01:00
+hash: 30fd3d30b9aa8ce03921a9e40f79593e76e3d90302e234f5804cf391a69cc78d
+updated: 2018-01-14T02:30:29.995607451+01:00
 imports:
-- name: github.com/beorn7/perks
-  version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
-  subpackages:
-  - quantile
 - name: github.com/DATA-DOG/go-txdb
   version: c3389523873340a9bdbbb51442197f86a176ad94
 - name: github.com/DATA-DOG/godog
@@ -39,19 +35,18 @@ imports:
   subpackages:
   - log
 - name: github.com/goph/fxt
-  version: d2c126f512e40950640156f9ef91a5abdf1cfa57
+  version: 7a0340b6e5c8ec000b15cedde816487042746c33
   subpackages:
   - database/sql
   - debug
   - errors
   - grpc
   - log
-  - metrics/prometheus
   - tracing
 - name: github.com/goph/healthz
   version: 571dac1216f2f4f920458b3b93f5835ec1bd35c6
 - name: github.com/goph/nest
-  version: 9150a9a1d4c9e4d9165726d9d748b2f0a485ad95
+  version: 5105bccf2d19b2e604506a47c4ea4a2cb35b8e05
 - name: github.com/grpc-ecosystem/go-grpc-middleware
   version: 645b33ed7ba8739747bf2df55d0349d4bba2e7f6
   subpackages:
@@ -59,8 +54,6 @@ imports:
   - tags
   - tracing/opentracing
   - util/metautils
-- name: github.com/grpc-ecosystem/go-grpc-prometheus
-  version: 6b7015e65d366bf3f19b2b2a000a831940f0f7e0
 - name: github.com/hashicorp/hcl
   version: 23c074d0eceb2b8a5bfdbb271ab780cde70f05a8
   subpackages:
@@ -78,10 +71,6 @@ imports:
   version: b84e30acd515aadc4b783ad4ff83aff3299bdfe0
 - name: github.com/magiconair/properties
   version: 49d762b9817ba1c2e9d0c69183c2b4a8b8f1d934
-- name: github.com/matttproud/golang_protobuf_extensions
-  version: c12348ce28de40eed0136aa2b644d0ee0650e56c
-  subpackages:
-  - pbutil
 - name: github.com/mitchellh/mapstructure
   version: b4575eea38cca1123ec2dc90c26529b5c5acfcff
 - name: github.com/opentracing/opentracing-go
@@ -93,25 +82,6 @@ imports:
   version: 0131db6d737cfbbfb678f8b7d92e55e27ce46224
 - name: github.com/pkg/errors
   version: 645ef00459ed84a119197bfb8d8205042c6df63d
-- name: github.com/prometheus/client_golang
-  version: c5b7fccd204277076155f10851dad72b76a49317
-  subpackages:
-  - prometheus
-  - prometheus/promhttp
-- name: github.com/prometheus/client_model
-  version: 6f3806018612930941127f2a7c6c453ba2c527d2
-  subpackages:
-  - go
-- name: github.com/prometheus/common
-  version: 2f17f4a9d485bf34b4bfaccc273805040e4f86c8
-  subpackages:
-  - expfmt
-  - internal/bitbucket.org/ww/goautoneg
-  - model
-- name: github.com/prometheus/procfs
-  version: e645f4e5aaa8506fc71d6edbc5c4ff02c04c46f2
-  subpackages:
-  - xfs
 - name: github.com/spf13/afero
   version: 57afd63c68602b63ed976de00dd066ccb3c319db
   subpackages:
