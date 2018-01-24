@@ -43,7 +43,8 @@ var Module = fx.Options(
 		// Database
 		NewDatabaseConfig,
 		fxsql.NewConnection,
-	), )
+	),
+)
 
 // Runner executes the application and waits for it to end.
 type Runner struct {
