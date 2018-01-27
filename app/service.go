@@ -2,13 +2,11 @@ package app
 
 import (
 	"database/sql"
-	"fmt"
 
 	"github.com/deshboard/boilerplate-model-service/pkg/app"
 	"github.com/go-kit/kit/log"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/goph/emperror"
-	fxsql "github.com/goph/fxt/database/sql"
 	fxgrpc "github.com/goph/fxt/grpc"
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
@@ -59,15 +57,4 @@ func NewGrpcConfig(config Config, tracer opentracing.Tracer) *fxgrpc.Config {
 	}
 
 	return c
-}
-
-// NewDatabaseConfig returns a new database connection configuration.
-func NewDatabaseConfig(config Config) *fxsql.Config {
-	return fxsql.NewConfig(
-		"mysql",
-		fmt.Sprintf(
-			"%s?parseTime=true",
-			config.Db.Dsn(),
-		),
-	)
 }
