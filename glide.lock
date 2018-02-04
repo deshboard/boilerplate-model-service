@@ -1,5 +1,5 @@
-hash: 9d87a7833963a5c8409046f01c4adcb0ba21c9c3cd19ccf3fc6f92da5307b225
-updated: 2018-01-24T23:50:09.647778206+01:00
+hash: 90d783c7a6d1aa4188e7b5f19e2055d82ecf76a7b3e8017b60392b2635224cfc
+updated: 2018-02-04T04:31:07.715097325+01:00
 imports:
 - name: github.com/DATA-DOG/go-txdb
   version: c3389523873340a9bdbbb51442197f86a176ad94
@@ -35,7 +35,7 @@ imports:
   subpackages:
   - log
 - name: github.com/goph/fxt
-  version: f67c6923cfd505e447508a7c505dabbf1903e741
+  version: e211115d82bfa39a929b6de28455e36ef749d39f
   subpackages:
   - database/sql
   - debug
@@ -44,6 +44,7 @@ imports:
   - grpc
   - log
   - test
+  - test/acceptance
   - test/fxtest
   - test/is
   - test/nettest
@@ -100,7 +101,7 @@ imports:
 - name: github.com/spf13/viper
   version: 25b30aa063fc18e48662b86996252eabdcf2f0c7
 - name: github.com/stretchr/testify
-  version: b91bfb9ebec76498946beb6af7c0230c7cc7ba6c
+  version: 12b6f73e6084dad08a7c6e575284b177ecafbc71
   subpackages:
   - assert
   - require
@@ -177,10 +178,6 @@ testImports:
   version: 6d212800a42e8ab5c146b8ace3490ee17e5225f9
   subpackages:
   - spew
-- name: github.com/deshboard/boilerplate-service
-  version: 3028da32ec70ec19f82f7912e533345421c22695
-  subpackages:
-  - pkg/app
 - name: github.com/pmezard/go-difflib
   version: d8ed2627bdf02c080bf22230dbb337003b7aba2d
   subpackages:
