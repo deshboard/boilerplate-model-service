@@ -32,17 +32,25 @@ var Module = fx.Options(
 		fxdebug.NewStatusChecker,
 	),
 
+	// gRPC server
 	fx.Provide(
-		// gRPC server
-		NewService,
 		NewGrpcConfig,
 		fxgrpc.NewServer,
+	),
 
+	// Instrumentation
+	fx.Provide(
 		fxtracing.NewTracer,
+	),
 
-		// Database
+	// Database
+	fx.Provide(
 		NewDatabaseConfig,
 		fxsql.NewConnection,
+	),
+
+	fx.Provide(
+		NewService,
 	),
 )
 
