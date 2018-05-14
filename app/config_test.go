@@ -72,7 +72,8 @@ func TestConfig(t *testing.T) {
 				Debug:                false,
 				LogFormat:            fxlog.LogfmtFormat.String(),
 				DebugAddr:            ":10001",
-				ShutdownTimeout:      10 * time.Second, GrpcAddr: ":8001",
+				ShutdownTimeout:      10 * time.Second,
+				GrpcAddr:             ":8001",
 				GrpcEnableReflection: true,
 				Db: fxsql.AppConfig{
 					Host: "127.0.0.1",
@@ -98,7 +99,8 @@ func TestConfig(t *testing.T) {
 				Debug:                false,
 				LogFormat:            fxlog.JsonFormat.String(),
 				DebugAddr:            ":10000",
-				ShutdownTimeout:      15 * time.Second, GrpcAddr: ":8000",
+				ShutdownTimeout:      15 * time.Second,
+				GrpcAddr:             ":8000",
 				GrpcEnableReflection: false,
 				Db: fxsql.AppConfig{
 					Host: "localhost",
