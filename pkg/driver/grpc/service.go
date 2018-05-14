@@ -1,4 +1,4 @@
-package app
+package grpc
 
 import (
 	"database/sql"
